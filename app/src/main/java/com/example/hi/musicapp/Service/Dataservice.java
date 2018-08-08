@@ -1,5 +1,7 @@
 package com.example.hi.musicapp.Service;
 
+import com.example.hi.musicapp.Model.AlbumHot;
+import com.example.hi.musicapp.Model.BaiHatDuocYeuThich;
 import com.example.hi.musicapp.Model.Playlist;
 import com.example.hi.musicapp.Model.Quangcao;
 import com.example.hi.musicapp.Model.Theloaitrongngay;
@@ -19,6 +21,12 @@ public interface Dataservice {
     @GET("playlistforcurrentday.php")
     Call<List<Playlist>> GetPlaylistCurrentDay();
 
-    @GET("ChudevaTheloaitrongngay.php")
+    @GET("chudevatheloaitrongngay.php")
     Call<Theloaitrongngay> GetCategoryMusic();
+
+    @GET("albumhot.php")
+    Call<List<AlbumHot>> GetAlbumHot();
+
+    @GET("baihatduocyeuthich.php")
+    Call<List<BaiHatDuocYeuThich>> GetBaiHatHot();
 }

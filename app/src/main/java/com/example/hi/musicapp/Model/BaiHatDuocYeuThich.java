@@ -3,19 +3,8 @@ package com.example.hi.musicapp.Model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.io.Serializable;
+public class BaiHatDuocYeuThich {
 
-public class Quangcao implements Serializable {
-
-@SerializedName("IdQuangCao")
-@Expose
-private String idQuangCao;
-@SerializedName("Hinhanh")
-@Expose
-private String hinhanh;
-@SerializedName("Noidung")
-@Expose
-private String noidung;
 @SerializedName("IdBaiHat")
 @Expose
 private String idBaiHat;
@@ -25,30 +14,15 @@ private String tenBaiHat;
 @SerializedName("HinhBaiHat")
 @Expose
 private String hinhBaiHat;
-
-public String getIdQuangCao() {
-return idQuangCao;
-}
-
-public void setIdQuangCao(String idQuangCao) {
-this.idQuangCao = idQuangCao;
-}
-
-public String getHinhanh() {
-return hinhanh;
-}
-
-public void setHinhanh(String hinhanh) {
-this.hinhanh = hinhanh;
-}
-
-public String getNoidung() {
-return noidung;
-}
-
-public void setNoidung(String noidung) {
-this.noidung = noidung;
-}
+@SerializedName("CaSi")
+@Expose
+private String caSi;
+@SerializedName("LinkBaiHat")
+@Expose
+private String linkBaiHat;
+@SerializedName("LuotThich")
+@Expose
+private String luotThich;
 
 public String getIdBaiHat() {
 return idBaiHat;
@@ -72,6 +46,30 @@ return hinhBaiHat;
 
 public void setHinhBaiHat(String hinhBaiHat) {
 this.hinhBaiHat = hinhBaiHat;
+}
+
+public String getCaSi() {
+return caSi;
+}
+
+public void setCaSi(String caSi) {
+this.caSi = caSi;
+}
+
+public String getLinkBaiHat() {
+return linkBaiHat;
+}
+
+public void setLinkBaiHat(String linkBaiHat) {
+this.linkBaiHat = linkBaiHat;
+}
+
+public String getLuotThich() {
+return luotThich;
+}
+
+public void setLuotThich(String luotThich) {
+this.luotThich = luotThich;
 }
 
 }

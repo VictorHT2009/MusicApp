@@ -24,6 +24,16 @@
             android:id="@+id/fragmentchudetheloaitoday"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
+        <fragment
+            android:name="com.example.hi.musicapp.Fragment.Fragment_Album_Hot"
+            android:id="@+id/fragmentalbumhot"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <fragment
+            android:name="com.example.hi.musicapp.Fragment.Fragment_Bai_Hat_Hot"
+            android:id="@+id/fragmentbaihathot"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
     </LinearLayout>
 
