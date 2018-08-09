@@ -2,6 +2,7 @@ package com.example.hi.musicapp.Service;
 
 import com.example.hi.musicapp.Model.AlbumHot;
 import com.example.hi.musicapp.Model.BaiHatDuocYeuThich;
+import com.example.hi.musicapp.Model.Chude;
 import com.example.hi.musicapp.Model.Playlist;
 import com.example.hi.musicapp.Model.Quangcao;
 import com.example.hi.musicapp.Model.Theloaitrongngay;
@@ -43,4 +44,12 @@ public interface Dataservice {
 
     @GET("danhsachcacplaylist.php")
     Call<List<Playlist>> GetDanhSachCacPlaylist();
+
+    @FormUrlEncoded
+    @POST("danhsachbaihat.php")
+    Call<List<BaiHatDuocYeuThich>> GetDanhSachBaiHatTheoTheLoai(@Field("idtheloai") String idtheloai);
+
+    @GET("tatcachude.php")
+    Call<List<Chude>> GetDanhSachAllChuDe();
+
 }

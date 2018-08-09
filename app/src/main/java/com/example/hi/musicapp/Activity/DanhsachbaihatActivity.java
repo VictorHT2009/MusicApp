@@ -23,6 +23,7 @@ import com.example.hi.musicapp.Adapter.DanhsachbaihatAdapter;
 import com.example.hi.musicapp.Model.BaiHatDuocYeuThich;
 import com.example.hi.musicapp.Model.Playlist;
 import com.example.hi.musicapp.Model.Quangcao;
+import com.example.hi.musicapp.Model.Theloai;
 import com.example.hi.musicapp.R;
 import com.example.hi.musicapp.Service.APIService;
 import com.example.hi.musicapp.Service.Dataservice;
@@ -50,6 +51,7 @@ public class DanhsachbaihatActivity extends AppCompatActivity {
     ArrayList<BaiHatDuocYeuThich> mangbaihat;
     DanhsachbaihatAdapter danhsachbaihatAdapter;
     Playlist playlist;
+    Theloai theloai;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,6 +67,29 @@ public class DanhsachbaihatActivity extends AppCompatActivity {
             setValueInView(playlist.getTen(),playlist.getHinhAnh());
             GetDataPlayList(playlist.getIdPlayList());
         }
+        if (theloai != null && !theloai.getTenTheLoai().equals("")){
+            setValueInView(theloai.getTenTheLoai(),theloai.getHinhTheLoai());
+            GetDataTheLoai(theloai.getIdTheLoai());
+
+        }
+    }
+    private void GetDataTheLoai(String idtheloai){
+        Dataservice dataservice = APIService.getService();
+        Call<List<BaiHatDuocYeuThich>> callback = dataservice.GetDanhSachBaiHatTheoTheLoai(idtheloai);
+        callback.enqueue(new Callback<List<BaiHatDuocYeuThich>>() {
+            @Override
+            public void onResponse(Call<List<BaiHatDuocYeuThich>> call, Response<List<BaiHatDuocYeuThich>> response) {
+                mangbaihat = (ArrayList<BaiHatDuocYeuThich>) response.body();
+                danhsachbaihatAdapter = new DanhsachbaihatAdapter(DanhsachbaihatActivity.this,mangbaihat);
+                recyclerViewdanhsachbaihat.setLayoutManager(new LinearLayoutManager(DanhsachbaihatActivity.this));
+                recyclerViewdanhsachbaihat.setAdapter(danhsachbaihatAdapter);
+            }
+
+            @Override
+            public void onFailure(Call<List<BaiHatDuocYeuThich>> call, Throwable t) {
+
+            }
+        });
     }
 
     private void GetDataPlayList(String idplaylist) {
@@ -154,6 +179,9 @@ public class DanhsachbaihatActivity extends AppCompatActivity {
             }
             if (intent.hasExtra("itemplaylist")){
                 playlist = (Playlist) intent.getSerializableExtra("itemplaylist");
+            }
+            if (intent.hasExtra("idtheloai")){
+                theloai = (Theloai) intent.getSerializableExtra("idtheloai");
             }
         }
     }

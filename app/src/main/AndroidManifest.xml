@@ -19,7 +19,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".Activity.DanhsachbaihatActivity" />
-        <activity android:name=".Activity.DanhsachcacplaylistActivity"></activity>
+        <activity android:name=".Activity.DanhsachcacplaylistActivity" />
+        <activity android:name=".Activity.DanhsachcacchudeActivity"></activity>
     </application>
 
 </manifest>
