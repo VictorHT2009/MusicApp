@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.example.hi.musicapp.Adapter.DanhsachbaihatAdapter;
 import com.example.hi.musicapp.Model.BaiHatDuocYeuThich;
+import com.example.hi.musicapp.Model.Playlist;
 import com.example.hi.musicapp.Model.Quangcao;
 import com.example.hi.musicapp.R;
 import com.example.hi.musicapp.Service.APIService;
@@ -48,6 +49,7 @@ public class DanhsachbaihatActivity extends AppCompatActivity {
     ImageView imageViewdanhsachcakhuc;
     ArrayList<BaiHatDuocYeuThich> mangbaihat;
     DanhsachbaihatAdapter danhsachbaihatAdapter;
+    Playlist playlist;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,9 +61,30 @@ public class DanhsachbaihatActivity extends AppCompatActivity {
             setValueInView(quangcao.getTenBaiHat(),quangcao.getHinhBaiHat());
             GetDataQuangCao(quangcao.getIdQuangCao());
         }
+        if (playlist != null && !playlist.getTen().equals("")){
+            setValueInView(playlist.getTen(),playlist.getHinhAnh());
+            GetDataPlayList(playlist.getIdPlayList());
+        }
     }
 
+    private void GetDataPlayList(String idplaylist) {
+        Dataservice dataservice = APIService.getService();
+        Call<List<BaiHatDuocYeuThich>> callback = dataservice.GetDanhSachBaiHatTheoPlayList(idplaylist);
+        callback.enqueue(new Callback<List<BaiHatDuocYeuThich>>() {
+            @Override
+            public void onResponse(Call<List<BaiHatDuocYeuThich>> call, Response<List<BaiHatDuocYeuThich>> response) {
+                mangbaihat = (ArrayList<BaiHatDuocYeuThich>) response.body();
+                danhsachbaihatAdapter = new DanhsachbaihatAdapter(DanhsachbaihatActivity.this,mangbaihat);
+                recyclerViewdanhsachbaihat.setLayoutManager(new LinearLayoutManager(DanhsachbaihatActivity.this));
+                recyclerViewdanhsachbaihat.setAdapter(danhsachbaihatAdapter);
+            }
 
+            @Override
+            public void onFailure(Call<List<BaiHatDuocYeuThich>> call, Throwable t) {
+
+            }
+        });
+    }
 
     private void setValueInView(String ten,String hinh) {
         collapsingToolbarLayout.setTitle(ten);
@@ -128,6 +151,9 @@ public class DanhsachbaihatActivity extends AppCompatActivity {
             if (intent.hasExtra("banner")){
                 quangcao = (Quangcao) intent.getSerializableExtra("banner");
                 Toast.makeText(this, quangcao.getTenBaiHat(), Toast.LENGTH_SHORT).show();
+            }
+            if (intent.hasExtra("itemplaylist")){
+                playlist = (Playlist) intent.getSerializableExtra("itemplaylist");
             }
         }
     }
