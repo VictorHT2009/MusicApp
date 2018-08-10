@@ -2,11 +2,13 @@ package com.example.hi.musicapp.Activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 
+import com.example.hi.musicapp.Adapter.DanhsachtatcacacchudeAdapter;
 import com.example.hi.musicapp.Model.Chude;
 import com.example.hi.musicapp.R;
 import com.example.hi.musicapp.Service.APIService;
@@ -23,6 +25,7 @@ public class DanhsachcacchudeActivity extends AppCompatActivity {
 
     RecyclerView recyclerViewAllchude;
     Toolbar toolbarAllchude;
+    DanhsachtatcacacchudeAdapter danhsachtatcacacchudeAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,7 +41,9 @@ public class DanhsachcacchudeActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<Chude>> call, Response<List<Chude>> response) {
                 ArrayList<Chude> mangchude = (ArrayList<Chude>) response.body();
-                Log.d("BBB",mangchude.get(0).getTenChuDe());
+                danhsachtatcacacchudeAdapter = new DanhsachtatcacacchudeAdapter(DanhsachcacchudeActivity.this,mangchude);
+                recyclerViewAllchude.setLayoutManager(new GridLayoutManager(DanhsachcacchudeActivity.this,1));
+                recyclerViewAllchude.setAdapter(danhsachtatcacacchudeAdapter);
             }
 
             @Override
