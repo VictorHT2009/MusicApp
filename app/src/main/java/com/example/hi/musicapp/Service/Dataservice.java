@@ -5,6 +5,7 @@ import com.example.hi.musicapp.Model.BaiHatDuocYeuThich;
 import com.example.hi.musicapp.Model.Chude;
 import com.example.hi.musicapp.Model.Playlist;
 import com.example.hi.musicapp.Model.Quangcao;
+import com.example.hi.musicapp.Model.Theloai;
 import com.example.hi.musicapp.Model.Theloaitrongngay;
 
 import java.util.List;
@@ -51,5 +52,9 @@ public interface Dataservice {
 
     @GET("tatcachude.php")
     Call<List<Chude>> GetDanhSachAllChuDe();
+
+    @FormUrlEncoded
+    @POST("theloaitheochude.php")
+    Call<List<Theloai>> GetDanhSachTheLoaiTheoChuDe(@Field("idchude") String idchude);
 
 }
