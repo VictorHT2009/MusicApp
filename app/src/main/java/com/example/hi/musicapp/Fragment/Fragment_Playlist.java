@@ -79,7 +79,6 @@ public class Fragment_Playlist extends Fragment {
                         startActivity(intent);
                     }
                 });
-
             }
 
             @Override
@@ -91,7 +90,6 @@ public class Fragment_Playlist extends Fragment {
     public void setListViewHeightBasedOnChildren(ListView listView) {
         ListAdapter listAdapter = listView.getAdapter();
         if (listAdapter == null) {
-            // pre-condition
             return;
         }
 
@@ -101,7 +99,6 @@ public class Fragment_Playlist extends Fragment {
             View listItem = listAdapter.getView(i, null, listView);
 
             if(listItem != null){
-                // This next line is needed before you call measure or else you won't get measured height at all. The listitem needs to be drawn first to know the height.
                 listItem.setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT));
                 listItem.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
                 totalHeight += listItem.getMeasuredHeight();

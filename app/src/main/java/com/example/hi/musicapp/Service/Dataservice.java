@@ -57,4 +57,18 @@ public interface Dataservice {
     @POST("theloaitheochude.php")
     Call<List<Theloai>> GetDanhSachTheLoaiTheoChuDe(@Field("idchude") String idchude);
 
+    @GET("tatcaalbum.php")
+    Call<List<AlbumHot>> GetDanhSachAlbum();
+
+    @FormUrlEncoded
+    @POST("danhsachbaihat.php")
+    Call<List<BaiHatDuocYeuThich>> GetDanhSachBaiHatTheoAlbum(@Field("idalbum") String idalbum);
+
+    @FormUrlEncoded
+    @POST("updateluotthich.php")
+    Call<String> UpdateLuotThich(@Field("luotthich") String luotthich, @Field("idbaihat") String idbaihat);
+
+    @FormUrlEncoded
+    @POST("searchbaihat.php")
+    Call<List<BaiHatDuocYeuThich>> GetSearchBaiHat(@Field("tukhoa") String tukhoa);
 }

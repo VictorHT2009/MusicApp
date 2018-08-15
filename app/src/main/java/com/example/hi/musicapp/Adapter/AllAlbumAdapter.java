@@ -11,56 +11,58 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.hi.musicapp.Activity.DanhsachbaihatActivity;
+import com.example.hi.musicapp.Activity.DanhsachtatcaAlbumActivity;
 import com.example.hi.musicapp.Model.AlbumHot;
 import com.example.hi.musicapp.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.ViewHolder> {
+public class AllAlbumAdapter extends RecyclerView.Adapter<AllAlbumAdapter.ViewHolder>{
 
     Context context;
-    ArrayList<AlbumHot> mangalbum;
+    ArrayList<AlbumHot> albumHotArrayList;
 
-    public AlbumAdapter(Context context, ArrayList<AlbumHot> mangalbum) {
+    public AllAlbumAdapter(Context context, ArrayList<AlbumHot> albumHotArrayList) {
         this.context = context;
-        this.mangalbum = mangalbum;
+        this.albumHotArrayList = albumHotArrayList;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.dong_album,null);
+        View view = inflater.inflate(R.layout.dong_all_album,parent,false);
+
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        AlbumHot albumHot = mangalbum.get(position);
-        holder.txttencasialbum.setText(albumHot.getTenCaSiAlbum());
-        holder.txttenalbum.setText(albumHot.getTenAlbum());
-        Picasso.with(context).load(albumHot.getHinhAlbum()).into(holder.imghinhalbum);
+        AlbumHot albumHot = albumHotArrayList.get(position);
+        Picasso.with(context).load(albumHot.getHinhAlbum()).into(holder.imgallalbum);
+        holder.txtallalbum.setText(albumHot.getTenAlbum());
+
     }
 
     @Override
     public int getItemCount() {
-        return mangalbum.size();
+        return 0;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        ImageView imghinhalbum;
-        TextView txttenalbum, txttencasialbum;
+
+        ImageView imgallalbum;
+        TextView txtallalbum;
         public ViewHolder(View itemView) {
             super(itemView);
-            imghinhalbum = itemView.findViewById(R.id.imageviewalbum);
-            txttenalbum = itemView.findViewById(R.id.textviewtenalbum);
-            txttencasialbum = itemView.findViewById(R.id.textviewtencasialbum);
+            imgallalbum = itemView.findViewById(R.id.imageviewdanhsachcacalbum);
+            txtallalbum = itemView.findViewById(R.id.textviewdanhsachcacalbum);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(context, DanhsachbaihatActivity.class);
-                    intent.putExtra("album",mangalbum.get(getPosition()));
+                    intent.putExtra("album",albumHotArrayList.get(getPosition()));
                     context.startActivity(intent);
                 }
             });

@@ -24,12 +24,12 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class DanhsachbaihatAdapter extends RecyclerView.Adapter<DanhsachbaihatAdapter.ViewHolder> {
+public class SearchBaiHatAdapter extends RecyclerView.Adapter<SearchBaiHatAdapter.ViewHolder>{
 
     Context context;
     ArrayList<BaiHatDuocYeuThich> mangbaihat;
 
-    public DanhsachbaihatAdapter(Context context, ArrayList<BaiHatDuocYeuThich> mangbaihat) {
+    public SearchBaiHatAdapter(Context context, ArrayList<BaiHatDuocYeuThich> mangbaihat) {
         this.context = context;
         this.mangbaihat = mangbaihat;
     }
@@ -38,16 +38,16 @@ public class DanhsachbaihatAdapter extends RecyclerView.Adapter<DanhsachbaihatAd
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.dong_danh_sach_bai_hat,parent,false);
+        View view = inflater.inflate(R.layout.dong_search_bai_hat, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        BaiHatDuocYeuThich baiHatDuocYeuThich = mangbaihat.get(position);
-        holder.txttencasi.setText(baiHatDuocYeuThich.getCaSi());
-        holder.txttenbaihat.setText(baiHatDuocYeuThich.getTenBaiHat());
-        holder.txtindex.setText(position + 1 + "");
+        BaiHatDuocYeuThich baihat = mangbaihat.get(position);
+        holder.txtTenbaihat.setText(baihat.getTenBaiHat());
+        holder.txtCasi.setText(baihat.getCaSi());
+        Picasso.with(context).load(baihat.getHinhBaiHat()).into(holder.imgbaihat);
 
     }
 
@@ -57,29 +57,36 @@ public class DanhsachbaihatAdapter extends RecyclerView.Adapter<DanhsachbaihatAd
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        TextView txtindex, txttenbaihat, txttencasi;
-        ImageView imgluotthich;
-        public ViewHolder(final View itemView) {
+        TextView txtTenbaihat, txtCasi;
+        ImageView imgbaihat, imgluotthich;
+        public ViewHolder(View itemView) {
             super(itemView);
-            txtindex = itemView.findViewById(R.id.textviewdanhsachindex);
-            txttenbaihat = itemView.findViewById(R.id.textviewtenbaihat);
-            txttencasi = itemView.findViewById(R.id.textviewtencasi);
-            imgluotthich = itemView.findViewById(R.id.imageviewluotthichdanhsachbaihat);
+            txtTenbaihat = itemView.findViewById(R.id.textviewsearchtenbaihat);
+            txtCasi = itemView.findViewById(R.id.textviewsearchcasi);
+            imgbaihat = itemView.findViewById(R.id.imageviewSearchbaihat);
+            imgluotthich = itemView.findViewById(R.id.imageviewSearchluotthich);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(context, PlaynhacActivity.class);
+                    intent.putExtra("cakhuc",mangbaihat.get(getPosition()));
+                    context.startActivity(intent);
+                }
+            });
             imgluotthich.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     imgluotthich.setImageResource(R.drawable.iconloved);
                     Dataservice dataservice = APIService.getService();
-                    //gia tri Id bai hat la ta can lay Id cua bai hat tren server de thay doi
                     Call<String> callback = dataservice.UpdateLuotThich("1",mangbaihat.get(getPosition()).getIdBaiHat());
                     callback.enqueue(new Callback<String>() {
                         @Override
                         public void onResponse(Call<String> call, Response<String> response) {
                             String ketqua = response.body();
                             if (ketqua.equals("Success")){
-                                Toast.makeText(context, "Đã Thích", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(context, "Da Thich", Toast.LENGTH_SHORT).show();
                             }else {
-                                Toast.makeText(context, "Bị Lỗi", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(context, "Bi Loi", Toast.LENGTH_SHORT).show();
                             }
                         }
 
@@ -89,15 +96,6 @@ public class DanhsachbaihatAdapter extends RecyclerView.Adapter<DanhsachbaihatAd
                         }
                     });
                     imgluotthich.setEnabled(false);
-
-                }
-            });
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(context, PlaynhacActivity.class);
-                    intent.putExtra("cakhuc",mangbaihat.get(getPosition()));
-                    context.startActivity(intent);
                 }
             });
         }
