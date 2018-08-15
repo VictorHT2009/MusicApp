@@ -47,7 +47,7 @@ public class AllAlbumAdapter extends RecyclerView.Adapter<AllAlbumAdapter.ViewHo
 
     @Override
     public int getItemCount() {
-        return 0;
+        return albumHotArrayList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{

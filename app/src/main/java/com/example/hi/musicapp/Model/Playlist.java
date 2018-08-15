@@ -13,7 +13,7 @@ public class Playlist implements Serializable{
     @SerializedName("Ten")
     @Expose
     private String ten;
-    @SerializedName("HinhAnh")
+    @SerializedName("Hinhnen")
     @Expose
     private String hinhAnh;
     @SerializedName("Icon")

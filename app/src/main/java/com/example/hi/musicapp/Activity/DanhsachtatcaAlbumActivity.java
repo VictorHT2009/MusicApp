@@ -41,7 +41,9 @@ public class DanhsachtatcaAlbumActivity extends AppCompatActivity {
         callback.enqueue(new Callback<List<AlbumHot>>() {
             @Override
             public void onResponse(Call<List<AlbumHot>> call, Response<List<AlbumHot>> response) {
+
                 ArrayList<AlbumHot> mangalbum = (ArrayList<AlbumHot>) response.body();
+
                 allAlbumAdapter = new AllAlbumAdapter(DanhsachtatcaAlbumActivity.this,mangalbum);
                 recyclerViewtatcaalbum.setLayoutManager(new GridLayoutManager(DanhsachtatcaAlbumActivity.this,2));
                 recyclerViewtatcaalbum.setAdapter(allAlbumAdapter);

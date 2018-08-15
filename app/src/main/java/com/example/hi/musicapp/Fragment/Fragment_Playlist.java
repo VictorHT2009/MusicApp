@@ -14,6 +14,7 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.hi.musicapp.Activity.DanhsachbaihatActivity;
 import com.example.hi.musicapp.Activity.DanhsachcacplaylistActivity;
@@ -43,15 +44,7 @@ public class Fragment_Playlist extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_playlist,container,false);
-        anhxa();
-        GetData();
-        txtviewxemthemplaylist.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), DanhsachcacplaylistActivity.class);
-                startActivity(intent);
-            }
-        });
+
         return view;
     }
 
@@ -71,14 +64,7 @@ public class Fragment_Playlist extends Fragment {
                 playlistAdapter = new PlaylistAdapter(getActivity(),android.R.layout.simple_list_item_1,mangplaylist);
                 lvplaylist.setAdapter(playlistAdapter);
                 setListViewHeightBasedOnChildren(lvplaylist);
-                lvplaylist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                        Intent intent = new Intent(getActivity(), DanhsachbaihatActivity.class);
-                        intent.putExtra("itemplaylist",mangplaylist.get(position));
-                        startActivity(intent);
-                    }
-                });
+
             }
 
             @Override
@@ -110,5 +96,28 @@ public class Fragment_Playlist extends Fragment {
         params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
         listView.setLayoutParams(params);
         listView.requestLayout();
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        anhxa();
+        GetData();
+        txtviewxemthemplaylist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), DanhsachcacplaylistActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        lvplaylist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(getActivity(), DanhsachbaihatActivity.class);
+                intent.putExtra("itemplaylist",mangplaylist.get(i));
+                startActivity(intent);
+            }
+        });
+        super.onActivityCreated(savedInstanceState);
     }
 }
